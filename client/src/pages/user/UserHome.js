@@ -1,4 +1,4 @@
-import UserAnnouncements from "../../component/user/announcements/UserAnnouncements";
+import UserAnnouncements from "../../components/user/announcements/UserAnnouncements";
 
 function UserHome() {
   return (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import UserMessage from "../../component/user/message/UserMessage";
+import UserMessage from "../../components/user/message/UserMessage";
 
 function UserMessages(props) {
   const [formData, setFormData] = useState({ name: "", unit: props.userAuthentication.unit, subject: "", message: "" });

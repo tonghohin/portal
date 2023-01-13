@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
-import AddResident from "../../component/admin/residents/AddResident";
-import UpdateResident from "../../component/admin/residents/UpdateResident";
-import DeleteResident from "../../component/admin/residents/DeleteResident";
+import AddResident from "../../components/admin/residents/AddResident";
+import UpdateResident from "../../components/admin/residents/UpdateResident";
+import DeleteResident from "../../components/admin/residents/DeleteResident";
 
 function Residents() {
   const [allResidents, setAllResidents] = useState([]);

@@ -1,26 +1,25 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 // ------------------------------ Admin ------------------------------
-import NavBar from "./component/admin/NavBar";
-import Login from "./page/admin/Login";
-import Register from "./page/admin/Register";
-import Home from "./page/admin/Home";
-import Residents from "./page/admin/Residents";
-import Gym from "./page/admin/Gym";
-import Announcements from "./page/admin/Announcements";
-import Messages from "./page/admin/Messages";
-import ProtectedRoute from "./component/admin/ProtectedRoute";
-import RedirectRoute from "./component/admin/RedirectRoute";
+import NavBar from "./components/admin/NavBar";
+import Login from "./pages/admin/Login";
+import Register from "./pages/admin/Register";
+import Home from "./pages/admin/Home";
+import Residents from "./pages/admin/Residents";
+import Gym from "./pages/admin/Gym";
+import Announcements from "./pages/admin/Announcements";
+import Messages from "./pages/admin/Messages";
+import ProtectedRoute from "./components/admin/ProtectedRoute";
+import RedirectRoute from "./components/admin/RedirectRoute";
 // ------------------------------ User ------------------------------
-import UserNavBar from "./component/user/UserNavBar";
-import UserLogin from "./page/user/UserLogin";
-import UserGym from "./page/user/UserGym";
-import UserHome from "./page/user/UserHome";
-import UserMessages from "./page/user/UserMessages";
-import UserPassword from "./page/user/UserPassword";
-import UserProtectedRoute from "./component/user/UserProtectedRoute";
-import UserRedirectRoute from "./component/user/UserRedirectRoute";
+import UserNavBar from "./components/user/UserNavBar";
+import UserLogin from "./pages/user/UserLogin";
+import UserGym from "./pages/user/UserGym";
+import UserHome from "./pages/user/UserHome";
+import UserMessages from "./pages/user/UserMessages";
+import UserPassword from "./pages/user/UserPassword";
+import UserProtectedRoute from "./components/user/UserProtectedRoute";
+import UserRedirectRoute from "./components/user/UserRedirectRoute";
 
 function App() {
   // ------------------------------ Admin ------------------------------

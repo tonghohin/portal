@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AnnouncementsContainer from "../../component/admin/announcements/AnnouncementsContainer";
+import AnnouncementsContainer from "../../components/admin/announcements/AnnouncementsContainer";
 
 function Announcements() {
   const [formData, setFormData] = useState({ subject: "", announcement: "" });

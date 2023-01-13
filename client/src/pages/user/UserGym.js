@@ -1,7 +1,7 @@
 import { ArrowUturnRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
-import UserGymCalendar from "../../component/user/gym/UserGymCalendar";
+import UserGymCalendar from "../../components/user/gym/UserGymCalendar";
 
 function UserGym(props) {
   const [gymSchedule, setGymSchedule] = useState([]);

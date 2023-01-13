@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import NewMessage from "../../component/admin/messages/NewMessage";
-import PastMessage from "../../component/admin/messages/PastMessage";
+import NewMessage from "../../components/admin/messages/NewMessage";
+import PastMessage from "../../components/admin/messages/PastMessage";
 
 function Messages() {
   const [messages, setMessages] = useState({ newMessage: [], pastMessage: [] });
