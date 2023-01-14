@@ -2,6 +2,7 @@ import { ArrowUturnRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import UserGymCalendar from "../../components/user/gym/UserGymCalendar";
+import { useSelector } from "react-redux";
 
 function UserGym(props) {
   const [gymSchedule, setGymSchedule] = useState([]);
@@ -36,19 +37,20 @@ function UserGym(props) {
         <h1 className="text-xl font-semibold">Gymroom Schedule</h1>
         <section className="grid grid-cols-5 bg-white rounded border-2">
           {gymSchedule.map((day) => (
-            <UserGymCalendar key={day._id} date={day.date} day={day} userAuthentication={props.userAuthentication} handleContextmenu={handleContextmenu} />
+            <UserGymCalendar key={day._id} date={day.date} day={day} handleContextmenu={handleContextmenu} />
           ))}
         </section>
       </main>
-      {contextmenuInfo.isShown && <Contextmenu contextmenuInfo={contextmenuInfo} clickedTimeslot={clickedTimeslot} userAuthentication={props.userAuthentication} setToggleRerender={setToggleRerender} />}
+      {contextmenuInfo.isShown && <Contextmenu contextmenuInfo={contextmenuInfo} clickedTimeslot={clickedTimeslot} setToggleRerender={setToggleRerender} />}
     </>
   );
 }
 
 function Contextmenu(props) {
+  const userReducer = useSelector((store) => store.user);
+
   function handleClick(e) {
-    fetch(`/gym/${props.clickedTimeslot.id}/${props.clickedTimeslot.text}/${props.clickedTimeslot.slot}`, { method: "PUT", body: JSON.stringify({ action: e.currentTarget.textContent, unit: props.userAuthentication.unit }), headers: { "Content-Type": "application/json" } });
-    props.setToggleRerender((prevToggleRerender) => !prevToggleRerender);
+    fetch(`/gym/${props.clickedTimeslot.id}/${props.clickedTimeslot.text}/${props.clickedTimeslot.slot}`, { method: "PUT", body: JSON.stringify({ action: e.currentTarget.textContent, unit: userReducer.unit }), headers: { "Content-Type": "application/json" } }).then(props.setToggleRerender((prevToggleRerender) => !prevToggleRerender));
   }
   return (
     <button className="bg-white border border-slate-500 px-1 rounded fixed hover:bg-slate-300" style={{ left: props.clickedTimeslot.coor.x, top: props.clickedTimeslot.coor.y }} onClick={handleClick}>

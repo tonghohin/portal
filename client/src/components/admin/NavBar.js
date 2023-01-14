@@ -1,15 +1,20 @@
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchAuthentication } from "../../features/adminSlice";
 
 function NavBar(props) {
+  const adminReducer = useSelector((store) => store.admin);
+  const dispatch = useDispatch();
+
   function handleClick() {
     localStorage.clear();
-    props.setToggleRerender((prevToggleRerender) => !prevToggleRerender);
+    dispatch(fetchAuthentication());
   }
 
   return (
     <nav className="bg-gray-700 p-2 text-center flex flex-col gap-5">
       <h1 className="text-2xl font-bold text-gray-100">Granbury Place</h1>
-      <h2 className="text-lg font-semibold text-gray-100">Welcome {props.authentication.username}!</h2>
+      <h2 className="text-lg font-semibold text-gray-100">Welcome {adminReducer.username}!</h2>
       <Link to="/admin" className={`text-md text-gray-100 p-2 hover:bg-gray-600 ${props.page === 1 && "bg-gray-600"}`}>
         Home
       </Link>

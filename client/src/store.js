@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./features/counterSlice";
+import adminReducer from "./features/adminSlice";
+import userReducer from "./features/userSlice";
 
 const store = configureStore({
   reducer: {
-    counter: counterReducer
+    admin: adminReducer,
+    user: userReducer
   }
 });
 

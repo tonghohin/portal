@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 function UserMessages(props) {
+  const userReducer = useSelector((store) => store.user);
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    fetch(`/message/${props.unit}`)
+    fetch(`/message/${userReducer.unit}`)
       .then((res) => res.json())
       .then((data) => {
         data.forEach((obj) => {
@@ -13,7 +15,7 @@ function UserMessages(props) {
         });
         setMessages(data.reverse());
       });
-  }, [props.toggleRerender, props.unit]);
+  }, [props.toggleRerender, userReducer.unit]);
 
   return (
     <section className="p-2 text-md bg-white mt-2 border-2 border-cyan-600 rounded">

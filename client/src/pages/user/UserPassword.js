@@ -1,9 +1,11 @@
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
-function UserPassport(props) {
-  const [formData, setFormData] = useState({ unit: props.userAuthentication.unit, confirmNewPassword: "", newPassword: "" });
+function UserPassport() {
+  const userReducer = useSelector((store) => store.user);
+  const [formData, setFormData] = useState({ unit: userReducer.unit, confirmNewPassword: "", newPassword: "" });
   const [message, setMessage] = useState("");
 
   function handleChange(e) {
@@ -17,7 +19,7 @@ function UserPassport(props) {
         .then((res) => res.text())
         .then((data) => {
           setMessage(data);
-          setFormData({ unit: props.userAuthentication.unit, confirmNewPassword: "", newPassword: "" });
+          setFormData({ unit: userReducer.unit, confirmNewPassword: "", newPassword: "" });
         });
     }
   }

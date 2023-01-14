@@ -1,17 +1,21 @@
+import { useSelector } from "react-redux";
+
 function UserGymCalendarDay(props) {
+  const userReducer = useSelector((store) => store.user);
+
   return (
     <div>
       <h1 className="bg-slate-200 font-semibold" id={props.dayId}>
         {props.time}
       </h1>
-      <p className={switchClass(props.slotOne, props.userAuthentication.unit)} onContextMenu={props.slotOne === "Available" || props.slotOne === props.userAuthentication.unit ? props.handleContextmenu : undefined} data-slot="slotOne">
-        {switchContent(props.slotOne, props.userAuthentication.unit)}
+      <p className={switchClass(props.slotOne, userReducer.unit)} onContextMenu={props.slotOne === "Available" || props.slotOne === userReducer.unit ? props.handleContextmenu : undefined} data-slot="slotOne">
+        {switchContent(props.slotOne, userReducer.unit)}
       </p>
-      <p id="slotTwo" className={switchClass(props.slotTwo, props.userAuthentication.unit, true)} onContextMenu={props.slotTwo === "Available" || props.slotTwo === props.userAuthentication.unit ? props.handleContextmenu : undefined} data-slot="slotTwo">
-        {switchContent(props.slotTwo, props.userAuthentication.unit)}
+      <p id="slotTwo" className={switchClass(props.slotTwo, userReducer.unit, true)} onContextMenu={props.slotTwo === "Available" || props.slotTwo === userReducer.unit ? props.handleContextmenu : undefined} data-slot="slotTwo">
+        {switchContent(props.slotTwo, userReducer.unit)}
       </p>
-      <p id="slotThree" className={switchClass(props.slotThree, props.userAuthentication.unit)} onContextMenu={props.slotThree === "Available" || props.slotThree === props.userAuthentication.unit ? props.handleContextmenu : undefined} data-slot="slotThree">
-        {switchContent(props.slotThree, props.userAuthentication.unit)}
+      <p id="slotThree" className={switchClass(props.slotThree, userReducer.unit)} onContextMenu={props.slotThree === "Available" || props.slotThree === userReducer.unit ? props.handleContextmenu : undefined} data-slot="slotThree">
+        {switchContent(props.slotThree, userReducer.unit)}
       </p>
     </div>
   );

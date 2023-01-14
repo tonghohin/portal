@@ -1,15 +1,20 @@
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUserAuthentication } from "../../features/userSlice";
 
 function UserNavBar(props) {
+  const userReducer = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+
   function handleClick() {
     localStorage.clear();
-    props.setToggleRerender((prevToggleRerender) => !prevToggleRerender);
+    dispatch(fetchUserAuthentication());
   }
 
   return (
     <nav className="bg-gray-700 p-2 text-center flex flex-col gap-5">
       <h1 className="text-2xl font-bold text-gray-100">Granbury Place</h1>
-      <h2 className="text-lg font-semibold text-gray-100">Your unit no: {props.userAuthentication.unit}</h2>
+      <h2 className="text-lg font-semibold text-gray-100">Your unit no: {userReducer.unit}</h2>
       <Link to="/" className={`text-md text-gray-100 p-2 hover:bg-gray-600 ${props.page === 1 && "bg-gray-600"}`}>
         Home
       </Link>

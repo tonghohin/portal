@@ -1,8 +1,12 @@
 import { useState } from "react";
 
-function UserLogin(props) {
+import { useDispatch } from "react-redux";
+import { fetchUserAuthentication } from "../../features/userSlice";
+
+function UserLogin() {
   const [formData, setFormData] = useState({ unit: "", password: "" });
   const [isInvalidUnitOrPassword, setIsInvalidUnitOrPassword] = useState(false);
+  const dispatch = useDispatch();
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,7 +21,7 @@ function UserLogin(props) {
           setIsInvalidUnitOrPassword(data);
         } else {
           localStorage.setItem("token", data);
-          props.setToggleRerender((prevToggleRerender) => !prevToggleRerender);
+          dispatch(fetchUserAuthentication());
         }
       });
     setFormData({ unit: "", password: "" });

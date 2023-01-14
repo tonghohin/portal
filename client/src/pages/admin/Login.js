@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Login(props) {
+import { useDispatch } from "react-redux";
+import { fetchAuthentication } from "../../features/adminSlice";
+
+function Login() {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [isInvalidUsernameOrPassword, setIsInvalidUsernameOrPassword] = useState(false);
+  const dispatch = useDispatch();
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -11,6 +15,7 @@ function Login(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     fetch("/admin/login", { method: "POST", body: JSON.stringify(formData), headers: { "Content-Type": "application/json" } })
       .then((res) => res.json())
       .then((data) => {
@@ -18,7 +23,7 @@ function Login(props) {
           setIsInvalidUsernameOrPassword(data);
         } else {
           localStorage.setItem("token", data);
-          props.setToggleRerender((prevToggleRerender) => !prevToggleRerender);
+          dispatch(fetchAuthentication());
         }
       });
     setFormData({ username: "", password: "" });

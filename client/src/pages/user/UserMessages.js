@@ -1,8 +1,10 @@
 import { useState } from "react";
 import UserMessage from "../../components/user/message/UserMessage";
+import { useSelector } from "react-redux";
 
 function UserMessages(props) {
-  const [formData, setFormData] = useState({ name: "", unit: props.userAuthentication.unit, subject: "", message: "" });
+  const userReducer = useSelector((store) => store.user);
+  const [formData, setFormData] = useState({ name: "", unit: userReducer.unit, subject: "", message: "" });
   const [message, setMessage] = useState("");
   const [toggleRerender, setToggleRerender] = useState(false);
 
@@ -18,7 +20,7 @@ function UserMessages(props) {
         setMessage(data);
         setToggleRerender((prevToggleRerender) => !prevToggleRerender);
       });
-    setFormData({ name: "", unit: props.userAuthentication.unit, subject: "", message: "" });
+    setFormData({ name: "", unit: userReducer.unit, subject: "", message: "" });
   }
 
   return (
@@ -31,7 +33,7 @@ function UserMessages(props) {
         <p className="text-cyan-600">{message}</p>
         <button className="self-start block bg-cyan-600 text-white py-0.5 px-3 rounded mt-2 hover:bg-cyan-700 transition">Send</button>
       </form>
-      <UserMessage toggleRerender={toggleRerender} unit={props.userAuthentication.unit} />
+      <UserMessage toggleRerender={toggleRerender}/>
     </main>
   );
 }

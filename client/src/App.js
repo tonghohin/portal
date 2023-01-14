@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 // ------------------------------ Admin ------------------------------
 import NavBar from "./components/admin/NavBar";
 import Login from "./pages/admin/Login";
@@ -20,30 +20,23 @@ import UserMessages from "./pages/user/UserMessages";
 import UserPassword from "./pages/user/UserPassword";
 import UserProtectedRoute from "./components/user/UserProtectedRoute";
 import UserRedirectRoute from "./components/user/UserRedirectRoute";
+// ------------------------------ Redux Toolkit ------------------------------
+import { useDispatch } from "react-redux";
+import { fetchAuthentication } from "./features/adminSlice";
+import { fetchUserAuthentication } from "./features/userSlice";
 
 function App() {
-  // ------------------------------ Admin ------------------------------
-  const [authentication, setAuthentication] = useState({});
-  const [toggleRerender, setToggleRerender] = useState(false);
+  const dispatch = useDispatch();
 
+  // ------------------------------ Admin ------------------------------
   useEffect(() => {
-    fetch("/admin/authenticate", { headers: { "x-access-token": localStorage.getItem("token") } })
-      .then((res) => res.json())
-      .then((data) => {
-        setAuthentication(data);
-      });
-  }, [toggleRerender]);
+    dispatch(fetchAuthentication());
+  }, [dispatch]);
 
   // ------------------------------ User ------------------------------
-  const [userAuthentication, setUserAuthentication] = useState({});
-
   useEffect(() => {
-    fetch("/authenticate", { headers: { "x-access-token": localStorage.getItem("token") } })
-      .then((res) => res.json())
-      .then((data) => {
-        setUserAuthentication(data);
-      });
-  }, [toggleRerender]);
+    dispatch(fetchUserAuthentication());
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -53,8 +46,8 @@ function App() {
           <Route
             index
             element={
-              <ProtectedRoute authentication={authentication}>
-                <NavBar page={1} setToggleRerender={setToggleRerender} authentication={authentication} />
+              <ProtectedRoute>
+                <NavBar page={1} />
                 <Home />
               </ProtectedRoute>
             }
@@ -62,8 +55,8 @@ function App() {
           <Route
             path="manage-residents"
             element={
-              <ProtectedRoute authentication={authentication}>
-                <NavBar page={2} setToggleRerender={setToggleRerender} authentication={authentication} />
+              <ProtectedRoute>
+                <NavBar page={2} />
                 <Residents />
               </ProtectedRoute>
             }
@@ -71,8 +64,8 @@ function App() {
           <Route
             path="manage-gym"
             element={
-              <ProtectedRoute authentication={authentication}>
-                <NavBar page={3} setToggleRerender={setToggleRerender} authentication={authentication} />
+              <ProtectedRoute>
+                <NavBar page={3} />
                 <Gym />
               </ProtectedRoute>
             }
@@ -80,8 +73,8 @@ function App() {
           <Route
             path="manage-announcement"
             element={
-              <ProtectedRoute authentication={authentication}>
-                <NavBar page={4} setToggleRerender={setToggleRerender} authentication={authentication} />
+              <ProtectedRoute>
+                <NavBar page={4} />
                 <Announcements />
               </ProtectedRoute>
             }
@@ -89,8 +82,8 @@ function App() {
           <Route
             path="manage-messages"
             element={
-              <ProtectedRoute authentication={authentication}>
-                <NavBar page={5} setToggleRerender={setToggleRerender} authentication={authentication} />
+              <ProtectedRoute>
+                <NavBar page={5} />
                 <Messages />
               </ProtectedRoute>
             }
@@ -98,15 +91,15 @@ function App() {
           <Route
             path="login"
             element={
-              <RedirectRoute authentication={authentication}>
-                <Login setToggleRerender={setToggleRerender} />
+              <RedirectRoute>
+                <Login />
               </RedirectRoute>
             }
           />
           <Route
             path="register"
             element={
-              <RedirectRoute authentication={authentication}>
+              <RedirectRoute>
                 <Register />
               </RedirectRoute>
             }
@@ -114,8 +107,8 @@ function App() {
           <Route
             path="*"
             element={
-              <ProtectedRoute authentication={authentication}>
-                <NavBar page={1} setToggleRerender={setToggleRerender} authentication={authentication} />
+              <ProtectedRoute>
+                <NavBar page={1} />
                 <Home />
               </ProtectedRoute>
             }
@@ -126,8 +119,8 @@ function App() {
           <Route
             index
             element={
-              <UserProtectedRoute userAuthentication={userAuthentication}>
-                <UserNavBar page={1} setToggleRerender={setToggleRerender} userAuthentication={userAuthentication} />
+              <UserProtectedRoute>
+                <UserNavBar page={1} />
                 <UserHome />
               </UserProtectedRoute>
             }
@@ -135,43 +128,43 @@ function App() {
           <Route
             path="gym"
             element={
-              <UserProtectedRoute userAuthentication={userAuthentication}>
-                <UserNavBar page={2} setToggleRerender={setToggleRerender} userAuthentication={userAuthentication} />
-                <UserGym userAuthentication={userAuthentication} />
+              <UserProtectedRoute>
+                <UserNavBar page={2} />
+                <UserGym />
               </UserProtectedRoute>
             }
           />
           <Route
             path="message"
             element={
-              <UserProtectedRoute userAuthentication={userAuthentication}>
-                <UserNavBar page={3} setToggleRerender={setToggleRerender} userAuthentication={userAuthentication} />
-                <UserMessages userAuthentication={userAuthentication} />
+              <UserProtectedRoute>
+                <UserNavBar page={3} />
+                <UserMessages />
               </UserProtectedRoute>
             }
           />
           <Route
             path="password"
             element={
-              <UserProtectedRoute userAuthentication={userAuthentication}>
-                <UserNavBar page={4} setToggleRerender={setToggleRerender} userAuthentication={userAuthentication} />
-                <UserPassword userAuthentication={userAuthentication} />
+              <UserProtectedRoute>
+                <UserNavBar page={4} />
+                <UserPassword />
               </UserProtectedRoute>
             }
           />
           <Route
             path="login"
             element={
-              <UserRedirectRoute userAuthentication={userAuthentication}>
-                <UserLogin setToggleRerender={setToggleRerender} />
+              <UserRedirectRoute>
+                <UserLogin />
               </UserRedirectRoute>
             }
           />
           <Route
             path="*"
             element={
-              <UserProtectedRoute userAuthentication={userAuthentication}>
-                <UserNavBar page={1} setToggleRerender={setToggleRerender} userAuthentication={userAuthentication} />
+              <UserProtectedRoute>
+                <UserNavBar page={1} />
                 <UserHome />
               </UserProtectedRoute>
             }
