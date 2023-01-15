@@ -2,7 +2,7 @@ import { useState } from "react";
 import UserMessage from "../../components/user/message/UserMessage";
 import { useSelector } from "react-redux";
 
-function UserMessages(props) {
+function UserMessages() {
   const userReducer = useSelector((store) => store.user);
   const [formData, setFormData] = useState({ name: "", unit: userReducer.unit, subject: "", message: "" });
   const [message, setMessage] = useState("");

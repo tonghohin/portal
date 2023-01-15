@@ -47,8 +47,9 @@ function Gym() {
 
 function Contextmenu(props) {
   function handleClick(e) {
-    fetch(`/admin/gym/${props.clickedTimeslot.id}/${props.clickedTimeslot.text}`, { method: "PUT", body: JSON.stringify({ action: e.currentTarget.textContent }), headers: { "Content-Type": "application/json" } });
-    props.setToggleRerender((prevToggleRerender) => !prevToggleRerender);
+    fetch(`/admin/gym/${props.clickedTimeslot.id}/${props.clickedTimeslot.text}`, { method: "PUT", body: JSON.stringify({ action: e.currentTarget.textContent }), headers: { "Content-Type": "application/json" } }).then(() => {
+      props.setToggleRerender((prevToggleRerender) => !prevToggleRerender);
+    });
   }
   return (
     <button className="bg-white border border-slate-500 px-1 rounded fixed hover:bg-slate-300" style={{ left: props.clickedTimeslot.coor.x, top: props.clickedTimeslot.coor.y }} onClick={handleClick}>

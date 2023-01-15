@@ -2,12 +2,27 @@ const express = require("express");
 const router = express.Router();
 const Gym = require("../../mongo/schema/Gym");
 
-router.route("/gymcalendar").get((req, res) => {
+router.route("/gymcalendar/:unit").get((req, res) => {
   Gym.find({}, (err, result) => {
     if (err) {
       console.log(err);
     }
-    res.json(result);
+    const sanitizedResult = result.map((day) => {
+      day.timeslot.map((timeslot) => {
+        if (timeslot.slotOne !== "Available" && timeslot.slotOne !== "Closed" && timeslot.slotOne !== req.params.unit) {
+          timeslot.slotOne = "Unavailable";
+        }
+        if (timeslot.slotTwo !== "Available" && timeslot.slotTwo !== "Closed" && timeslot.slotTwo !== req.params.unit) {
+          timeslot.slotTwo = "Unavailable";
+        }
+        if (timeslot.slotThree !== "Available" && timeslot.slotThree !== "Closed" && timeslot.slotThree !== req.params.unit) {
+          timeslot.slotThree = "Unavailable";
+        }
+        return timeslot;
+      });
+      return day;
+    });
+    res.json(sanitizedResult);
   });
 });
 

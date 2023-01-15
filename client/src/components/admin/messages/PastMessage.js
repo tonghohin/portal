@@ -23,24 +23,20 @@ function PastMessage(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`/message/${clickedMessage.id}`, { method: "PUT", body: JSON.stringify({ reply: clickedMessage.reply }), headers: { "Content-Type": "application/json" } })
-      .then((res) => res.text())
-      .then((data) => {
-        setClickedMessage({ coor: { x: 0, y: 0 }, id: "", reply: "", isInEditMode: false });
-        props.handleToggleRerender();
-      });
+    fetch(`/message/${clickedMessage.id}`, { method: "PUT", body: JSON.stringify({ reply: clickedMessage.reply }), headers: { "Content-Type": "application/json" } }).then(() => {
+      setClickedMessage({ coor: { x: 0, y: 0 }, id: "", reply: "", isInEditMode: false });
+      props.handleToggleRerender();
+    });
   }
 
   return (
     <div key={props.pastMessage._id} data-id={props.pastMessage._id} className="grid grid-cols-2 gap-1 mt-2">
       <article className="bg-slate-300 rounded p-2 flex flex-col ">
-        <h1 className="font-bold col-span-full">
+        <h1 className="font-bold col-span-full flex justify-between items-center">
           {props.pastMessage.name} from unit {props.pastMessage.unit}
-        </h1>
-        <h2 className="font-semibold flex justify-between items-center">
-          {props.pastMessage.subject}
           <time className="font-normal text-xs">{props.pastMessage.createdAt}</time>
-        </h2>
+        </h1>
+        <h2 className="font-semibold">{props.pastMessage.subject}</h2>
         <p className="text-gray-600 whitespace-pre-wrap">{props.pastMessage.message}</p>
       </article>
 

@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import UserGymCalendar from "../../components/user/gym/UserGymCalendar";
 import { useSelector } from "react-redux";
 
-function UserGym(props) {
+function UserGym() {
+  const userReducer = useSelector((store) => store.user);
   const [gymSchedule, setGymSchedule] = useState([]);
   const [toggleRerender, setToggleRerender] = useState(false);
   const [contextmenuInfo, setContextmenuInfo] = useState({ isShown: false, textIsAvailable: true });
@@ -23,13 +24,13 @@ function UserGym(props) {
   }, []);
 
   useEffect(() => {
-    fetch("/gymcalendar")
+    fetch(`/gymcalendar/${userReducer.unit}`)
       .then((res) => res.json())
       .then((data) => {
         data.map((obj) => (obj.date = new Date(obj.date).toDateString()));
         setGymSchedule(data);
       });
-  }, [toggleRerender]);
+  }, [toggleRerender, userReducer.unit]);
 
   return (
     <>
@@ -50,7 +51,9 @@ function Contextmenu(props) {
   const userReducer = useSelector((store) => store.user);
 
   function handleClick(e) {
-    fetch(`/gym/${props.clickedTimeslot.id}/${props.clickedTimeslot.text}/${props.clickedTimeslot.slot}`, { method: "PUT", body: JSON.stringify({ action: e.currentTarget.textContent, unit: userReducer.unit }), headers: { "Content-Type": "application/json" } }).then(props.setToggleRerender((prevToggleRerender) => !prevToggleRerender));
+    fetch(`/gym/${props.clickedTimeslot.id}/${props.clickedTimeslot.text}/${props.clickedTimeslot.slot}`, { method: "PUT", body: JSON.stringify({ action: e.currentTarget.textContent, unit: userReducer.unit }), headers: { "Content-Type": "application/json" } }).then(() => {
+      props.setToggleRerender((prevToggleRerender) => !prevToggleRerender);
+    });
   }
   return (
     <button className="bg-white border border-slate-500 px-1 rounded fixed hover:bg-slate-300" style={{ left: props.clickedTimeslot.coor.x, top: props.clickedTimeslot.coor.y }} onClick={handleClick}>

@@ -27,7 +27,6 @@ import { fetchUserAuthentication } from "./features/userSlice";
 
 function App() {
   const dispatch = useDispatch();
-
   // ------------------------------ Admin ------------------------------
   useEffect(() => {
     dispatch(fetchAuthentication());

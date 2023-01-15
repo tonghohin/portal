@@ -14,24 +14,20 @@ function NewMessage(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`/message/${e.target.parentElement.parentElement.dataset.id}`, { method: "PUT", body: JSON.stringify(formData), headers: { "Content-Type": "application/json" } })
-      .then((res) => res.text())
-      .then((data) => {
-        props.setToggleRerender((prevToggleRerender) => !prevToggleRerender);
-      });
+    fetch(`/message/${e.target.parentElement.parentElement.dataset.id}`, { method: "PUT", body: JSON.stringify(formData), headers: { "Content-Type": "application/json" } }).then(() => {
+      props.setToggleRerender((prevToggleRerender) => !prevToggleRerender);
+    });
     setFormData({ reply: "" });
   }
 
   return (
     <div data-id={props.newMessage._id} className="grid grid-cols-2 gap-1 mt-2">
       <article className="bg-slate-100 rounded p-2 flex flex-col">
-        <h1 className="font-bold col-span-full">
+        <h1 className="font-bold col-span-full flex justify-between items-center">
           {props.newMessage.name} from unit {props.newMessage.unit}
-        </h1>
-        <h2 className="font-semibold flex justify-between items-center">
-          {props.newMessage.subject}
           <time className="font-normal text-xs">{props.newMessage.createdAt}</time>
-        </h2>
+        </h1>
+        <h2 className="font-semibold">{props.newMessage.subject}</h2>
         <p className="text-gray-600 whitespace-pre-wrap">{props.newMessage.message}</p>
       </article>
       <article className="bg-slate-100 rounded p-2 grid">
