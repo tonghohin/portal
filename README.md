@@ -19,6 +19,7 @@ This is a portal designed for making communications between tenants and superint
 - Tailwind CSS
 - React
 - React Router
+- Redux Toolkit
 - Express
 - REST API
 - MongoDB
