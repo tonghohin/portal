@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {};
 
 export const fetchUserAuthentication = createAsyncThunk("user/fetchUserAuthentication", async () => {
-  const res = await fetch("/authenticate", { headers: { "x-access-token": localStorage.getItem("token") } });
+  const res = await fetch("/authenticate", { headers: { authorization: `Bearer ${localStorage.getItem("token")}` } });
   const data = await res.json();
   return data;
 });
