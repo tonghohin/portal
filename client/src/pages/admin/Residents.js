@@ -29,14 +29,14 @@ function Residents() {
   }, []);
 
   function handleSorting(e) {
-    switch (e.currentTarget.parentElement.textContent) {
-      case "First Name":
+    switch (e.currentTarget.dataset.column) {
+      case "firstName":
         setAllResidents((prevAllResidents) => [...prevAllResidents.sort((a, b) => a.firstName.localeCompare(b.firstName))]);
         break;
-      case "Last Name":
+      case "lastName":
         setAllResidents((prevAllResidents) => [...prevAllResidents.sort((a, b) => a.lastName.localeCompare(b.lastName))]);
         break;
-      case "Unit":
+      case "unit":
         setAllResidents((prevAllResidents) => [...prevAllResidents.sort((a, b) => a.unit - b.unit)]);
         break;
       default:
@@ -97,15 +97,21 @@ function Residents() {
               <tr className="text-left ">
                 <th className="py-2">
                   First Name
-                  <ArrowsUpDownIcon className="h-5 w-5 inline cursor-pointer p-0.5 ml-1 text-gray-600 rounded hover:bg-gray-200" onClick={handleSorting} />
+                  <button onClick={handleSorting} data-column="firstName">
+                    <ArrowsUpDownIcon className="h-5 w-5 inline cursor-pointer p-0.5 ml-1 text-gray-600 rounded hover:bg-gray-200" />
+                  </button>
                 </th>
                 <th className="py-2">
                   Last Name
-                  <ArrowsUpDownIcon className="h-5 w-5 inline cursor-pointer p-0.5 ml-1 text-gray-600 rounded hover:bg-gray-200" onClick={handleSorting} />
+                  <button onClick={handleSorting} data-column="lastName">
+                    <ArrowsUpDownIcon className="h-5 w-5 inline cursor-pointer p-0.5 ml-1 text-gray-600 rounded hover:bg-gray-200" />
+                  </button>
                 </th>
                 <th className="py-2">
                   Unit
-                  <ArrowsUpDownIcon className="h-5 w-5 inline cursor-pointer p-0.5 ml-1 text-gray-600 rounded hover:bg-gray-200" onClick={handleSorting} />
+                  <button onClick={handleSorting} data-column="unit">
+                    <ArrowsUpDownIcon className="h-5 w-5 inline cursor-pointer p-0.5 ml-1 text-gray-600 rounded hover:bg-gray-200" />
+                  </button>
                 </th>
               </tr>
             </thead>

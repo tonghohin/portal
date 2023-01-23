@@ -1,14 +1,16 @@
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function Announcement(props) {
   const [contextmenuIsShown, setContextmenuIsShown] = useState(false);
   const [clickedAnnouncement, setClickedAnnouncement] = useState({ coor: { x: 0, y: 0 }, id: "", subject: "", announcement: "", isInEditMode: false });
+  const H1 = useRef(null);
+  const P = useRef(null);
 
   function handleContextmenu(e) {
     e.preventDefault();
     setContextmenuIsShown(true);
-    setClickedAnnouncement({ coor: { x: e.clientX, y: e.clientY }, id: e.currentTarget.id, subject: e.currentTarget.children[0].textContent, announcement: e.currentTarget.children[2].textContent, isInEditMode: false });
+    setClickedAnnouncement({ coor: { x: e.clientX, y: e.clientY }, id: e.currentTarget.id, subject: H1.current.textContent, announcement: P.current.textContent, isInEditMode: false });
   }
 
   useEffect(() => {
@@ -40,9 +42,13 @@ function Announcement(props) {
     </form>
   ) : (
     <article id={props.announcement._id} className="bg-slate-100 rounded p-2 grid grid-cols-2 cursor-pointer hover:bg-slate-200" onContextMenu={handleContextmenu}>
-      <h1 className="font-bold">{props.announcement.subject}</h1>
+      <h1 className="font-bold" ref={H1}>
+        {props.announcement.subject}
+      </h1>
       <time className="text-xs text-right leading-5">{props.announcement.createdAt}</time>
-      <p className="text-gray-600 whitespace-pre-wrap">{props.announcement.announcement}</p>
+      <p className="text-gray-600 whitespace-pre-wrap" ref={P}>
+        {props.announcement.announcement}
+      </p>
       {contextmenuIsShown && <Contextmenu setClickedAnnouncement={setClickedAnnouncement} clickedAnnouncement={clickedAnnouncement} />}
     </article>
   );

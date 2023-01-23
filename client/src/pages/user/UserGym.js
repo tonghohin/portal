@@ -9,13 +9,6 @@ function UserGym() {
   const [gymSchedule, setGymSchedule] = useState([]);
   const [toggleRerender, setToggleRerender] = useState(false);
   const [contextmenuInfo, setContextmenuInfo] = useState({ isShown: false, textIsAvailable: true });
-  const [clickedTimeslot, setClickedTimslot] = useState({ coor: { x: 0, y: 0 }, id: "", text: "", slot: "" });
-
-  function handleContextmenu(e) {
-    e.preventDefault();
-    e.target.textContent === "Available" ? setContextmenuInfo({ isShown: true, textIsAvailable: true }) : setContextmenuInfo({ isShown: true, textIsAvailable: false });
-    setClickedTimslot({ coor: { x: e.clientX, y: e.clientY }, id: e.target.parentElement.firstChild.id, text: e.target.parentElement.firstChild.textContent, slot: e.target.dataset.slot });
-  }
 
   useEffect(() => {
     window.addEventListener("click", () => {
@@ -38,25 +31,26 @@ function UserGym() {
         <h1 className="text-xl font-semibold">Gymroom Schedule</h1>
         <section className="grid grid-cols-5 bg-white rounded border-2">
           {gymSchedule.map((day) => (
-            <UserGymCalendar key={day._id} date={day.date} day={day} handleContextmenu={handleContextmenu} />
+            <UserGymCalendar key={day._id} date={day.date} day={day} setContextmenuInfo={setContextmenuInfo} />
           ))}
         </section>
       </main>
-      {contextmenuInfo.isShown && <Contextmenu contextmenuInfo={contextmenuInfo} clickedTimeslot={clickedTimeslot} setToggleRerender={setToggleRerender} />}
+      {contextmenuInfo.isShown && <Contextmenu contextmenuInfo={contextmenuInfo} setToggleRerender={setToggleRerender} />}
     </>
   );
 }
 
 function Contextmenu(props) {
   const userReducer = useSelector((store) => store.user);
+  const userGymReucer = useSelector((store) => store.userGym);
 
   function handleClick(e) {
-    fetch(`/gym/${props.clickedTimeslot.id}/${props.clickedTimeslot.text}/${props.clickedTimeslot.slot}`, { method: "PUT", body: JSON.stringify({ action: e.currentTarget.textContent, unit: userReducer.unit }), headers: { "Content-Type": "application/json" } }).then(() => {
+    fetch(`/gym/${userGymReucer.id}/${userGymReucer.text}/${userGymReucer.slot}`, { method: "PUT", body: JSON.stringify({ action: e.currentTarget.textContent, unit: userReducer.unit }), headers: { "Content-Type": "application/json" } }).then(() => {
       props.setToggleRerender((prevToggleRerender) => !prevToggleRerender);
     });
   }
   return (
-    <button className="bg-white border border-slate-500 px-1 rounded fixed hover:bg-slate-300" style={{ left: props.clickedTimeslot.coor.x, top: props.clickedTimeslot.coor.y }} onClick={handleClick}>
+    <button className="bg-white border border-slate-500 px-1 rounded fixed hover:bg-slate-300" style={{ left: userGymReucer.coor.x, top: userGymReucer.coor.y }} onClick={handleClick}>
       {props.contextmenuInfo.textIsAvailable ? "Register" : "De-register"}
       {props.contextmenuInfo.textIsAvailable ? <CheckIcon className="h-5 w-5 inline ml-2 mb-1 text-green-600" /> : <ArrowUturnRightIcon className="h-5 w-5 inline ml-2 mb-1 text-red-600" />}
     </button>

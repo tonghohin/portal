@@ -1,9 +1,11 @@
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function PastMessage(props) {
   const [contextmenuIsShown, setContextmenuIsShown] = useState(false);
   const [clickedMessage, setClickedMessage] = useState({ coor: { x: 0, y: 0 }, id: "", reply: "", isInEditMode: false });
+  const Div = useRef(null);
+  const P = useRef(null);
 
   useEffect(() => {
     window.addEventListener("click", () => {
@@ -14,7 +16,7 @@ function PastMessage(props) {
   function handleContextmenu(e) {
     e.preventDefault();
     setContextmenuIsShown(true);
-    setClickedMessage({ coor: { x: e.clientX, y: e.clientY }, id: e.currentTarget.parentElement.dataset.id, reply: e.currentTarget.children[1].textContent, isInEditMode: false });
+    setClickedMessage({ coor: { x: e.clientX, y: e.clientY }, id: Div.current.dataset.id, reply: P.current.textContent, isInEditMode: false });
   }
 
   function handleChange(e) {
@@ -30,10 +32,10 @@ function PastMessage(props) {
   }
 
   return (
-    <div key={props.pastMessage._id} data-id={props.pastMessage._id} className="grid grid-cols-2 gap-1 mt-2">
+    <div key={props.pastMessage._id} data-id={props.pastMessage._id} className="grid grid-cols-2 gap-1 mt-2" ref={Div}>
       <article className="bg-slate-300 rounded p-2 flex flex-col ">
         <h1 className="font-bold col-span-full flex justify-between items-center">
-          {props.pastMessage.name} from unit {props.pastMessage.unit}
+          {props.pastMessage.name} from Unit {props.pastMessage.unit}
           <time className="font-normal text-xs">{props.pastMessage.createdAt}</time>
         </h1>
         <h2 className="font-semibold">{props.pastMessage.subject}</h2>
@@ -48,7 +50,9 @@ function PastMessage(props) {
       ) : (
         <article className="bg-slate-100 rounded p-2 cursor-pointer hover:bg-slate-200" onContextMenu={handleContextmenu}>
           <time className="text-xs text-right block">Replied on {props.pastMessage.updatedAt}</time>
-          <p className="text-gray-600 whitespace-pre-wrap">{props.pastMessage.reply}</p>
+          <p className="text-gray-600 whitespace-pre-wrap" ref={P}>
+            {props.pastMessage.reply}
+          </p>
           {contextmenuIsShown && <Contextmenu clickedMessage={clickedMessage} setClickedMessage={setClickedMessage} />}
         </article>
       )}

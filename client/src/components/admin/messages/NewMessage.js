@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function NewMessage(props) {
   const [formData, setFormData] = useState({ reply: "" });
   const [isFormShown, setIsFormShown] = useState(false);
+  const Div = useRef(null);
 
   function handleClick() {
     setIsFormShown(true);
@@ -14,14 +15,14 @@ function NewMessage(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`/message/${e.target.parentElement.parentElement.dataset.id}`, { method: "PUT", body: JSON.stringify(formData), headers: { "Content-Type": "application/json" } }).then(() => {
+    fetch(`/message/${Div.current.dataset.id}`, { method: "PUT", body: JSON.stringify(formData), headers: { "Content-Type": "application/json" } }).then(() => {
       props.setToggleRerender((prevToggleRerender) => !prevToggleRerender);
     });
     setFormData({ reply: "" });
   }
 
   return (
-    <div data-id={props.newMessage._id} className="grid grid-cols-2 gap-1 mt-2">
+    <div data-id={props.newMessage._id} className="grid grid-cols-2 gap-1 mt-2" ref={Div}>
       <article className="bg-slate-100 rounded p-2 flex flex-col">
         <h1 className="font-bold col-span-full flex justify-between items-center">
           {props.newMessage.name} from unit {props.newMessage.unit}
