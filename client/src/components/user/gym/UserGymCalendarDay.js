@@ -7,6 +7,7 @@ function UserGymCalendarDay(props) {
   const H1 = useRef(null);
 
   function handleContextmenu(e) {
+    console.log('asdvdsa')
     e.preventDefault();
     e.target.textContent === "Available" ? props.setContextmenuInfo({ isShown: true, textIsAvailable: true }) : props.setContextmenuInfo({ isShown: true, textIsAvailable: false });
     dispatch(rightClicked({ coor: { x: e.clientX, y: e.clientY }, id: H1.current.id, text: H1.current.textContent, slot: e.target.dataset.slot }));
@@ -20,10 +21,10 @@ function UserGymCalendarDay(props) {
       <p className={switchClass(props.slotOne)} onContextMenu={props.slotOne === "Closed" || props.slotOne === "Unavailable" ? undefined : handleContextmenu} data-slot="slotOne">
         {props.slotOne}
       </p>
-      <p id="slotTwo" className={switchClass(props.slotTwo, true)} onContextMenu={props.slotOne === "Closed" || props.slotOne === "Unavailable" ? undefined : handleContextmenu} data-slot="slotTwo">
+      <p id="slotTwo" className={switchClass(props.slotTwo, true)} onContextMenu={props.slotOne === "Closed" || props.slotTwo === "Unavailable" ? undefined : handleContextmenu} data-slot="slotTwo">
         {props.slotTwo}
       </p>
-      <p id="slotThree" className={switchClass(props.slotThree)} onContextMenu={props.slotOne === "Closed" || props.slotOne === "Unavailable" ? undefined : handleContextmenu} data-slot="slotThree">
+      <p id="slotThree" className={switchClass(props.slotThree)} onContextMenu={props.slotOne === "Closed" || props.slotThree === "Unavailable" ? undefined : handleContextmenu} data-slot="slotThree">
         {props.slotThree}
       </p>
     </div>
