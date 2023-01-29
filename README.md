@@ -18,7 +18,6 @@ See the TypeScript version here: https://github.com/tonghohin/ts-portal
 
 - JavaScript
 - HTML
-- CSS
 - Tailwind CSS
 - React
 - React Router
