@@ -1,3 +1,4 @@
+import * as XLSX from "xlsx";
 import { useState, useEffect } from "react";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { TrashIcon } from "@heroicons/react/24/outline";
@@ -87,10 +88,20 @@ function Residents() {
       });
   }
 
+  function handleExportClick() {
+    const worksheet = XLSX.utils.json_to_sheet(allResidents);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Residents");
+    XLSX.writeFile(workbook, "Residents.xlsx");
+  }
+
   return (
     <>
       <main className="p-5 bg-gray-100">
-        <h1 className="text-xl font-semibold">Residents</h1>
+        <navbar className="flex justify-between mb-2" >
+          <h1 className="text-xl font-semibold">Residents</h1>
+          <button className="bg-green-600 text-white py-0.5 px-3 rounded hover:bg-green-700 transition" onClick={handleExportClick}>Export</button>
+        </navbar>
         <div className="bg-white w-full rounded border-2">
           <table className="w-full">
             <thead>
