@@ -98,10 +98,10 @@ function Residents() {
   return (
     <>
       <main className="p-5 bg-gray-100">
-        <navbar className="flex justify-between mb-2" >
+        <nav className="flex justify-between mb-2" >
           <h1 className="text-xl font-semibold">Residents</h1>
           <button className="bg-green-600 text-white py-0.5 px-3 rounded hover:bg-green-700 transition" onClick={handleExportClick}>Export</button>
-        </navbar>
+        </nav>
         <div className="bg-white w-full rounded border-2">
           <table className="w-full">
             <thead>
