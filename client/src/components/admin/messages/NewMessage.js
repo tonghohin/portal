@@ -35,7 +35,7 @@ function NewMessage(props) {
         {isFormShown ? (
           <form className="flex flex-col h-72 p-2 text-md bg-white mt-2 border-2 border-green-700 rounded" onSubmit={handleSubmit}>
             <textarea className="resize-none bg-gray-100 m-1 ml-0 border-2 w-full h-full" name="reply" placeholder="Reply" value={formData.reply} onChange={handleChange} required={true} autoComplete="false" />
-            <button className="self-start block bg-green-600 text-white py-0.5 px-3 rounded mt-2 hover:bg-cyan-700 transition">Send</button>
+            <button className="self-start block bg-green-600 text-white py-0.5 px-3 rounded mt-2 hover:bg-green-700 transition">Send</button>
           </form>
         ) : (
           <button className="bg-green-600 text-white py-0.5 px-3 rounded place-self-center hover:bg-green-700 transition" onClick={handleClick}>
