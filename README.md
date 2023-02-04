@@ -3,6 +3,7 @@
 This is a portal designed for making communications between tenants and superintendents easier.
 
 See the TypeScript version here: https://github.com/tonghohin/ts-portal
+See the Firebase version here: https://github.com/tonghohin/firebase-portal
 
 ## Features
 
@@ -17,7 +18,6 @@ See the TypeScript version here: https://github.com/tonghohin/ts-portal
 ## Built With
 
 - JavaScript
-- HTML
 - Tailwind CSS
 - React
 - React Router
