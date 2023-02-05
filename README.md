@@ -4,7 +4,7 @@ This is a portal designed for making communications between tenants and superint
 
 See the TypeScript version here: https://github.com/tonghohin/ts-portal
 
-See the Firebase version here: https://github.com/tonghohin/firebase-portal
+See the JavaScript with Firebase version here: https://github.com/tonghohin/firebase-portal
 
 ## Features
 
