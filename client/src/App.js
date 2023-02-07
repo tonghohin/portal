@@ -41,133 +41,116 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* ------------------------------ Admin ------------------------------ */}
-        <Route path="/admin">
+        <Route path="/admin" element={<ProtectedRoute />}>
           <Route
             index
             element={
-              <ProtectedRoute>
+              <>
                 <NavBar page={1} />
                 <Home />
-              </ProtectedRoute>
+              </>
             }
           />
           <Route
             path="manage-residents"
             element={
-              <ProtectedRoute>
+              <>
                 <NavBar page={2} />
                 <Residents />
-              </ProtectedRoute>
+              </>
             }
           />
           <Route
             path="manage-gym"
             element={
-              <ProtectedRoute>
+              <>
                 <NavBar page={3} />
                 <Gym />
-              </ProtectedRoute>
+              </>
             }
           />
           <Route
             path="manage-announcement"
             element={
-              <ProtectedRoute>
+              <>
                 <NavBar page={4} />
                 <Announcements />
-              </ProtectedRoute>
+              </>
             }
           />
           <Route
             path="manage-messages"
             element={
-              <ProtectedRoute>
+              <>
                 <NavBar page={5} />
                 <Messages />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="login"
-            element={
-              <RedirectRoute>
-                <Login />
-              </RedirectRoute>
-            }
-          />
-          <Route
-            path="register"
-            element={
-              <RedirectRoute>
-                <Register />
-              </RedirectRoute>
+              </>
             }
           />
           <Route
             path="*"
             element={
-              <ProtectedRoute>
+              <>
                 <NavBar page={1} />
                 <Home />
-              </ProtectedRoute>
+              </>
             }
           />
         </Route>
+        <Route path="/admin" element={<RedirectRoute />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
         {/* ------------------------------ User ------------------------------ */}
-        <Route path="/">
+        <Route path="/" element={<UserProtectedRoute />}>
           <Route
             index
             element={
-              <UserProtectedRoute>
+              <>
                 <UserNavBar page={1} />
                 <UserHome />
-              </UserProtectedRoute>
+              </>
             }
           />
           <Route
             path="gym"
             element={
-              <UserProtectedRoute>
+              <>
                 <UserNavBar page={2} />
                 <UserGym />
-              </UserProtectedRoute>
+              </>
             }
           />
           <Route
             path="message"
             element={
-              <UserProtectedRoute>
+              <>
                 <UserNavBar page={3} />
                 <UserMessages />
-              </UserProtectedRoute>
+              </>
             }
           />
           <Route
             path="password"
             element={
-              <UserProtectedRoute>
+              <>
                 <UserNavBar page={4} />
                 <UserPassword />
-              </UserProtectedRoute>
-            }
-          />
-          <Route
-            path="login"
-            element={
-              <UserRedirectRoute>
-                <UserLogin />
-              </UserRedirectRoute>
+              </>
             }
           />
           <Route
             path="*"
             element={
-              <UserProtectedRoute>
+              <>
                 <UserNavBar page={1} />
                 <UserHome />
-              </UserProtectedRoute>
+              </>
             }
           />
+        </Route>
+        <Route path="/" element={<UserRedirectRoute />}>
+          <Route path="login" element={<UserLogin />} />
         </Route>
       </Routes>
     </BrowserRouter>

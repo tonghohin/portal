@@ -23,7 +23,7 @@ function UserLogin() {
           localStorage.setItem("token", data);
           dispatch(fetchUserAuthentication());
         }
-      });
+      })
     setFormData({ unit: "", password: "" });
   }
 

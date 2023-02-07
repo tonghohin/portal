@@ -13,6 +13,7 @@ router.route("/login").post((req, res) => {
       bcrypt.compare(req.body.password, user[0].password, (err, result) => {
         if (result) {
           jwt.sign({ username: user[0].username, isAdmin: true }, process.env.SECRET, { expiresIn: 86400 }, (err, token) => {
+            console.log(token);
             res.json(token);
           });
         } else {
