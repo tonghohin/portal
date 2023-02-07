@@ -30,6 +30,7 @@ See the JavaScript with Firebase version here: https://github.com/tonghohin/fire
 - MongoDB
 - Mongoose
 - JSON Web Tokens
+- Cyclic
 
 ## Demo
 
