@@ -1,4 +1,4 @@
-# Tenant Potal
+# Property Management Potal
 
 This is a portal designed for making communications between tenants and superintendents easier.
 
